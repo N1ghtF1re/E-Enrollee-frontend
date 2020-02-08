@@ -1,0 +1,21 @@
+const HTTP_STATUS = {
+    BAD_REQUEST: 400,
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+    NOT_FOUND: 404,
+    INTERNAL_SERVER_ERROR: 500,
+    OK: 200,
+};
+
+const HTTP_METHOD = {
+    GET: 'GET',
+    PATCH: 'PATCH',
+    POST: 'POST',
+    PUT: 'PUT',
+    DELETE: 'DELETE',
+};
+
+export {
+    HTTP_METHOD,
+    HTTP_STATUS
+}
