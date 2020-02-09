@@ -18,12 +18,13 @@ const getData = (sendPostRequest, searchUrl) => (
     .finally(() => setLoaded(true));
 };
 
-const HttpListPage = ({ children, searchUrl, entitiesPerPage = 5 }) => {
+const HttpListPage = ({ children, searchUrl, entitiesPerPage = 5, createButton }) => {
   const { sendPostRequest } = useAuthenticatedRequest();
   return (
     <ListPageTemplate
       entitiesPerPage={entitiesPerPage}
       getData={getData(sendPostRequest, searchUrl)}
+      createButton={createButton}
     >
       {children}
     </ListPageTemplate>

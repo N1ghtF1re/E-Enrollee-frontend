@@ -1,18 +1,12 @@
 import React from "react";
+import './Footer.css';
 
 const Footer = () => (
-    <div className="d-flex flex-column">
-        <footer className="footer">
-            <div>
-                <a href="/">E-Enrollee</a>
-                <span>&copy; 2020</span>
-            </div>
-            <div className="ml-auto">
-                <span>Powered by</span>
-                <a href="http://brakh.men">BrakhMen</a>
-            </div>
-        </footer>
-    </div>
+    <footer id="sticky-footer" className="py-4 bg-dark text-white-50">
+        <div className="container text-center">
+            <small>Copyright &copy; Brakhmen Corp</small>
+        </div>
+    </footer>
 );
 
 export default Footer;

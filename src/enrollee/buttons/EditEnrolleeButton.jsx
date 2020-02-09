@@ -1,5 +1,4 @@
 import React from "react";
-import DeleteButton from "../../shared/buttons/DeleteButton";
 import {ENROLLEES} from "../const";
 import EditButton from "../../shared/buttons/EditButton";
 

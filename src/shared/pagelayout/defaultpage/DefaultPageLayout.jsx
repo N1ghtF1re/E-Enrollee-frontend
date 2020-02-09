@@ -6,7 +6,7 @@ import {Container} from "react-bootstrap";
 const DefaultPageLayout = ({children}) => (
     <>
         <Header/>
-        <div className='mt-5'>
+        <div className='mt-5 content'>
             <Container>
                 {children}
             </Container>

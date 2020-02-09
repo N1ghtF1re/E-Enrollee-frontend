@@ -4,24 +4,25 @@ import CreateEnrolleePage from "./pages/CreateEnrolleePage";
 import UpdateEnrolleePage from "./pages/UpdateEnrolleePage";
 import ShowEnrolleePage from "./pages/ShowEnrolleePage";
 import ListEnroleePage from "./pages/ListEnrolleePage";
+import ProtectedRoute from "../shared/routing/ProtectedRoute";
 
 const EnrolleeRouter = () => {
     let match = useRouteMatch();
 
     return (
         <Switch>
-            <Route exact path={`${match.path}`}>
+            <ProtectedRoute exact path={`${match.path}`}>
                 <ListEnroleePage/>
-            </Route>
-            <Route exact path={`${match.path}/create`}>
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${match.path}/create`}>
                 <CreateEnrolleePage/>
-            </Route>
-            <Route exact path={`${match.path}/:id/update`}>
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${match.path}/:id/update`}>
                 <UpdateEnrolleePage/>
-            </Route>
-            <Route exact path={`${match.path}/:id`}>
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${match.path}/:id`}>
                 <ShowEnrolleePage/>
-            </Route>
+            </ProtectedRoute>
         </Switch>
     )
 };

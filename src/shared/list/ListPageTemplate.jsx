@@ -1,25 +1,52 @@
 import React, { useEffect, useReducer, useState } from "react";
 import Pagination from "./Pagination";
 import Loader from "react-loader";
-import { useAuthenticatedRequest } from "../api/requestsService";
 import ListPageLayout from "./ListPageLayout";
 import { ListProvider } from "./ListContext";
+import FilterProvider from "./FilterContext";
+import {SORT_TYPE} from "./const";
 
-const FilterAction = {
-  CHANGE_PAGE: "CHANGE_PAGE"
+const FILTER_ACTION = {
+  CHANGE_PAGE: "CHANGE_PAGE",
+  SET_SORT: "SET_SORT",
+  SET_FILTER: "SET_FILTER"
 };
 
 const reducer = (state, action) => {
+
   switch (action.type) {
-    case FilterAction.CHANGE_PAGE:
+    case FILTER_ACTION.CHANGE_PAGE:
       return {
         ...state,
         page: action.payload
       };
+    case FILTER_ACTION.SET_SORT:
+      return {
+        ...state,
+        sortBy: action.payload
+      };
+    case FILTER_ACTION.SET_FILTER:
+      const newFilters =  [...state.filters].filter(
+          filter => filter.value && filter.field !== action.payload.field
+      );
+
+      if (action.payload.value) {
+        newFilters.push(action.payload)
+      }
+
+      return {
+        ...state,
+        filters: newFilters
+      }
   }
 };
 
-const ListPageTemplate = ({ children, entitiesPerPage = 5, getData }) => {
+const ListPageTemplate = ({
+  children,
+  entitiesPerPage = 5,
+  getData,
+  createButton
+}) => {
   const [data, setData] = useState({});
   const [isLoaded, setLoaded] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
@@ -27,11 +54,18 @@ const ListPageTemplate = ({ children, entitiesPerPage = 5, getData }) => {
 
   const initState = {
     filters: [],
-    sortBy: { field: "id", type: "ASC" },
+    sortBy: { field: "id", type: SORT_TYPE.ASC },
     page: 0,
     pageSize: entitiesPerPage
   };
   const [searchRequest, dispatch] = useReducer(reducer, initState);
+
+  const filterContext = {
+    setSort: sort => dispatch({ type: FILTER_ACTION.SET_SORT, payload: sort }),
+    sort: searchRequest.sortBy,
+    filters: searchRequest.filters,
+    setFilter: filter => dispatch({type: FILTER_ACTION.SET_FILTER, payload: filter})
+  };
 
   useEffect(() => {
     getData(searchRequest, setData, setError, setLoaded, setTotalPages);
@@ -42,7 +76,7 @@ const ListPageTemplate = ({ children, entitiesPerPage = 5, getData }) => {
       totalPages={totalPages}
       page={searchRequest.page}
       onPageChange={page =>
-        dispatch({ type: FilterAction.CHANGE_PAGE, payload: page })
+        dispatch({ type: FILTER_ACTION.CHANGE_PAGE, payload: page })
       }
     />
   );
@@ -50,7 +84,11 @@ const ListPageTemplate = ({ children, entitiesPerPage = 5, getData }) => {
   return (
     <Loader loaded={isLoaded}>
       <ListProvider value={data}>
-        <ListPageLayout pagination={pagination}>{children}</ListPageLayout>
+        <FilterProvider value={filterContext}>
+          <ListPageLayout pagination={pagination} createButton={createButton}>
+            {children}
+          </ListPageLayout>
+        </FilterProvider>
       </ListProvider>
     </Loader>
   );

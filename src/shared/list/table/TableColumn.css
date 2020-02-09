@@ -1,0 +1,12 @@
+.sort-button {
+    border: none;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: gray;
+}
+
+.sort-button.active{
+    display: none;
+}
