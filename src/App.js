@@ -8,6 +8,8 @@ import CreateEnrolleePage from "./enrollee/pages/CreateEnrolleePage";
 import EnrolleeRouter from "./enrollee/EnrolleeRouter";
 import DefaultPageLayout from "./shared/pagelayout/defaultpage/DefaultPageLayout";
 import {ENROLLEES} from "./enrollee/const";
+import {CT_CERTIFICATES} from "./ct-certificate/const";
+import CtCertificateRouter from "./ct-certificate/CtCertificateRouter";
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
               </Route>
               <Route path={`/${ENROLLEES}`}>
                   <EnrolleeRouter/>
+              </Route>
+              <Route path={`/${CT_CERTIFICATES}`}>
+                  <CtCertificateRouter/>
               </Route>
 
           </Switch>

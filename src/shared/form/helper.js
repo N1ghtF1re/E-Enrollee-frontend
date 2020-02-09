@@ -18,6 +18,7 @@ const handleError = (error, setError, history) => {
 export const useOnSubmit = (setError, setInfo, request, url) => {
     const history = useHistory();
 
+
     return (values, {setSubmitting}) => {
         request(url, values)
             .then(() => {

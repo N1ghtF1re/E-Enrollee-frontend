@@ -1,6 +1,7 @@
 import React from "react";
 import MenuItem from "./MenuItem";
 import {ENROLLEES} from "../../../../enrollee/const";
+import {CT_CERTIFICATES} from "../../../../ct-certificate/const";
 
 const Header = () => (
     <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{
@@ -16,6 +17,8 @@ const Header = () => (
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
                 <MenuItem title='Enrolleee' link={`/${ENROLLEES}`}/>
+                <MenuItem title='Ct Certificates' link={`/${CT_CERTIFICATES}`}/>
+
             </div>
         </div>
     </nav>
