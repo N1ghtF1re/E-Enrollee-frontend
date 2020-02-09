@@ -19,9 +19,7 @@ const reducer = (state, action) => {
   }
 };
 
-const ListPage = ({ entityName, children, entitiesPerPage = 5, searchUrl }) => {
-  const { sendPostRequest } = useAuthenticatedRequest();
-
+const ListPageTemplate = ({ children, entitiesPerPage = 5, getData }) => {
   const [data, setData] = useState({});
   const [isLoaded, setLoaded] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
@@ -36,15 +34,8 @@ const ListPage = ({ entityName, children, entitiesPerPage = 5, searchUrl }) => {
   const [searchRequest, dispatch] = useReducer(reducer, initState);
 
   useEffect(() => {
-    sendPostRequest(searchUrl, searchRequest)
-      .then(async response => {
-        const json = await response.json();
-        setTotalPages(json.totalPages);
-        setData(json.content);
-      })
-      .catch(() => setError("Server error. Try again"))
-      .finally(() => setLoaded(true));
-  }, [entityName, searchRequest, sendPostRequest]);
+    getData(searchRequest, setData, setError, setLoaded, setTotalPages);
+  }, [getData, searchRequest]);
 
   const pagination = (
     <Pagination
@@ -65,4 +56,4 @@ const ListPage = ({ entityName, children, entitiesPerPage = 5, searchUrl }) => {
   );
 };
 
-export default ListPage;
+export default ListPageTemplate;
