@@ -3,8 +3,8 @@ import {useUnauthenticatedRequest} from "../../shared/api/requestsService";
 import useAuthentication from "../authenticationService";
 import {useHistory} from "react-router-dom";
 import React from "react";
-import TextInput from "../../shared/inputs/TextInput";
-import PasswordInput from "../../shared/inputs/PasswordInput";
+import TextInput from "../../shared/form/inputs/TextInput";
+import PasswordInput from "../../shared/form/inputs/PasswordInput";
 import FormLayout from "../../shared/form/FormLayout";
 import * as Yup from "yup";
 import {HTTP_STATUS} from "../../shared/api/const";
@@ -29,14 +29,13 @@ const validationSchema = Yup.object().shape({
 });
 
 const handleError = (error, setError) => {
-    if (error.status === HTTP_STATUS.BAD_REQUEST) {
-
-        error.json().then(errorJson => {
-            setError(errorJson.message)
-        });
-    } else {
-        setError('Server error. Please, try again')
-    }
+  if (error.status === HTTP_STATUS.BAD_REQUEST) {
+    error.json().then(errorJson => {
+      setError(errorJson.message);
+    });
+  } else {
+    setError("Server error. Please, try again");
+  }
 };
 
 

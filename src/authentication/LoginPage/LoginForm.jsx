@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
 import FormLayout from "../../shared/form/FormLayout";
-import TextInput from "../../shared/inputs/TextInput";
-import PasswordInput from "../../shared/inputs/PasswordInput";
+import TextInput from "../../shared/form/inputs/TextInput";
+import PasswordInput from "../../shared/form/inputs/PasswordInput";
 import {useUnauthenticatedRequest} from "../../shared/api/requestsService";
 import {HTTP_STATUS} from "../../shared/api/const";
 import useAuthentication from "../authenticationService";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
     username: Yup.string()
