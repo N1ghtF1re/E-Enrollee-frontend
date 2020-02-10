@@ -69,7 +69,7 @@ const ListPageTemplate = ({
 
   useEffect(() => {
     getData(searchRequest, setData, setError, setLoaded, setTotalPages);
-  }, [getData, searchRequest]);
+  }, [getData, searchRequest, data]);
 
   const pagination = (
     <Pagination
