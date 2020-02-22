@@ -5,7 +5,7 @@ import {useHistory} from "react-router-dom";
 import React from "react";
 import TextInput from "../../shared/form/inputs/TextInput";
 import PasswordInput from "../../shared/form/inputs/PasswordInput";
-import FormLayout from "../../shared/form/FormLayout";
+import Form from "../../shared/form/Form";
 import * as Yup from "yup";
 import {HTTP_STATUS} from "../../shared/api/const";
 
@@ -52,7 +52,7 @@ const RegistrationForm = () => {
     });
 
     return (
-        <FormLayout
+        <Form
             title='Registration'
             initialValues={{firstName:'', lastName:'', middleName: '', password: '', username: ''}}
             onSubmit={(values, {setSubmitting}) => {
@@ -80,7 +80,7 @@ const RegistrationForm = () => {
             <TextInput fieldName='middleName'/>
             <TextInput fieldName='username'/>
             <PasswordInput fieldName='password'/>
-        </FormLayout>
+        </Form>
     );
 };
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
-import FormLayout from "../../shared/form/FormLayout";
+import Form from "../../shared/form/Form";
 import TextInput from "../../shared/form/inputs/TextInput";
 import PasswordInput from "../../shared/form/inputs/PasswordInput";
 import {useUnauthenticatedRequest} from "../../shared/api/requestsService";
@@ -36,7 +36,7 @@ const ValidatedLoginForm = () => {
     });
 
     return (
-        <FormLayout
+        <Form
             title='Login'
             initialValues={{username:'', password:''}}
             onSubmit={(values, {setSubmitting}) => {
@@ -54,7 +54,7 @@ const ValidatedLoginForm = () => {
         >
             <TextInput fieldName='username'/>
             <PasswordInput fieldName='password'/>
-        </FormLayout>
+        </Form>
     )
 };
 

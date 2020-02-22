@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import FormLayout from "./FormLayout";
+import Form from "./Form";
 import { useAuthenticatedRequest } from "../api/requestsService";
 import { useOnSubmit } from "./helper";
 import { HTTP_STATUS } from "../api/const";
 import Page404 from "../pages/Page404";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Loader from "react-loader";
 
 export const PAGE_TYPE = {
@@ -31,6 +31,7 @@ const CreateUpdateForm = ({
   const [isLoaded, setLoaded] = useState(false);
   const [isNotFound, setNotFound] = useState(false);
 
+  const history = useHistory();
   const id = useParams().id;
 
   const loadDataUrl = `/${entityName}/${id}`;
@@ -56,6 +57,8 @@ const CreateUpdateForm = ({
         .catch(error => {
           if (error.status === HTTP_STATUS.NOT_FOUND) {
             setNotFound(true);
+          } else if (error.status === HTTP_STATUS.FORBIDDEN) {
+            history.push('/403')
           } else {
             setError("Server error");
             setLoaded(true);
@@ -73,7 +76,7 @@ const CreateUpdateForm = ({
 
   return (
     <Loader loaded={isLoaded}>
-      <FormLayout
+      <Form
         title={title}
         initialValues={initValues}
         onSubmit={onSubmit}
@@ -82,7 +85,7 @@ const CreateUpdateForm = ({
         info={info}
       >
         {children}
-      </FormLayout>
+      </Form>
     </Loader>
   );
 };

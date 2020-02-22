@@ -17,7 +17,7 @@ const EnrolleeRouter = () => {
             <ProtectedRoute exact path={`${match.path}/create`}>
                 <CreateEnrolleePage/>
             </ProtectedRoute>
-            <ProtectedRoute exact path={`${match.path}/:id/update`}>
+            <ProtectedRoute exact path={`${match.path}/:id/update`} allowedRoles={['ROLE_ADMIN']}>
                 <UpdateEnrolleePage/>
             </ProtectedRoute>
             <ProtectedRoute exact path={`${match.path}/:id`}>

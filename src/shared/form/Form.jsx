@@ -4,7 +4,7 @@ import { FormProvider } from "./FormContext";
 import { Alert, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
-const FormLayout = ({
+const Form = ({
   validationSchema,
   title,
   onSubmit,
@@ -45,4 +45,4 @@ const FormLayout = ({
   );
 };
 
-export default FormLayout;
+export default Form;

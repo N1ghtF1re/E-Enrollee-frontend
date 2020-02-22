@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import useAuthentication from "../../authentication/authenticationService";
 import Loader from "react-loader";
 import { Route, Redirect } from "react-router-dom";
+import {useAuthorization} from "../authorization/auhtorizationService";
 
-const ProtectedRoute = ({ exact = false, path, children }) => {
+const ProtectedRoute = ({ exact = false, path, allowedRoles = [], children }) => {
   const { isAuthenticated } = useAuthentication();
+  const {hasOneOfRoles, rolesLoaded} = useAuthorization();
   const [isUserAuthenticated, setAuthenticated] = useState(false);
   const [isLoaded, setLoaded] = useState(false);
 
@@ -16,12 +18,18 @@ const ProtectedRoute = ({ exact = false, path, children }) => {
       .finally(() => setLoaded(true));
   });
 
+
+
   return (
-    <Loader loaded={isLoaded}>
+    <Loader loaded={isLoaded && rolesLoaded}>
       {isUserAuthenticated ? (
-        <Route exact={exact} path={path}>
-          {children}
-        </Route>
+          hasOneOfRoles(allowedRoles) ? (
+              <Route exact={exact} path={path}>
+                {children}
+              </Route>
+          ) : (
+              <Redirect to='/403'/>
+          )
       ) : (
         <Redirect to={"/login"} />
       )}
